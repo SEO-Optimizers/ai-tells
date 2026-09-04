@@ -19,7 +19,7 @@ Both are jobs for code. That is all this is.
 ## Quick start
 
 ```bash
-git clone https://github.com/seo-optimizers/seo-copy-check.git
+git clone https://github.com/SEO-Optimizers/seo-copy-check.git
 cd seo-copy-check
 
 # Real character counts. The brand after the last "|" is not counted.
