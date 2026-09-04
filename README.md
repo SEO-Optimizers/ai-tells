@@ -88,6 +88,15 @@ cp -r ai-tells /path/to/project/.claude/skills/
 Claude picks it up from the description in `SKILL.md` and runs the scripts instead of
 estimating. `SKILL.md` also carries the full title tag and meta description rules.
 
+## Want us to run it on your site?
+
+We will scan your published pages and send back a report: every page ranked by
+issues found, the specific phrases with counts, and your dash totals.
+
+[Get a free AI writing check](https://seooptimizers.com/ai-writing-check/)
+
+The scan is the same code in this repo, pointed at your sitemap instead of ours.
+
 ## Who made this
 
 Built by [SEO Optimizers](https://seooptimizers.com), an SEO agency in Los Angeles. We wrote
