@@ -1,5 +1,5 @@
 ---
-name: seo-copy-check
+name: ai-tells
 description: >
   Write and verify SEO title tags and meta descriptions, and catch AI-writing tells in body
   copy, using deterministic scripts instead of asking a model to count or self-police. Use when

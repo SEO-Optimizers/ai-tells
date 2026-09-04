@@ -1,4 +1,4 @@
-# seo-copy-check
+# ai-tells
 
 A Claude skill (and two standalone scripts) for writing SEO title tags and meta descriptions,
 and for catching the phrases and punctuation that make copy read as AI-written.
@@ -19,8 +19,8 @@ Both are jobs for code. That is all this is.
 ## Quick start
 
 ```bash
-git clone https://github.com/SEO-Optimizers/seo-copy-check.git
-cd seo-copy-check
+git clone https://github.com/SEO-Optimizers/ai-tells.git
+cd ai-tells
 
 # Real character counts. The brand after the last "|" is not counted.
 python3 scripts/check_lengths.py "Emergency Plumber Marietta | Acme Plumbing"
@@ -80,9 +80,9 @@ is any good, and passing it does not make copy worth publishing.
 Drop the folder into your skills directory:
 
 ```bash
-cp -r seo-copy-check ~/.claude/skills/          # available in every project
+cp -r ai-tells ~/.claude/skills/          # available in every project
 # or, for one project only:
-cp -r seo-copy-check /path/to/project/.claude/skills/
+cp -r ai-tells /path/to/project/.claude/skills/
 ```
 
 Claude picks it up from the description in `SKILL.md` and runs the scripts instead of
