@@ -1,0 +1,18 @@
+{
+  "name": "seo-optimizers",
+  "owner": {
+    "name": "SEO Optimizers",
+    "url": "https://seooptimizers.com"
+  },
+  "plugins": [
+    {
+      "name": "ai-tells",
+      "source": "./",
+      "description": "Catches the phrases and punctuation that make copy read as AI-written, and checks SEO title tags and meta descriptions against real character counts. Deterministic, no dependencies.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "homepage": "https://github.com/SEO-Optimizers/ai-tells",
+      "keywords": ["seo", "writing", "linter", "content", "ai-tells"]
+    }
+  ]
+}

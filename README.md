@@ -1,7 +1,10 @@
 # ai-tells
 
-A Claude skill (and two standalone scripts) for writing SEO title tags and meta descriptions,
-and for catching the phrases and punctuation that make copy read as AI-written.
+A Claude skill that stops Claude from writing like Claude, plus two standalone scripts
+you can run on any text.
+
+It catches the phrases and punctuation that make copy read as AI-written, and it checks
+SEO title tags and meta descriptions against real character counts.
 
 Python 3 standard library only. Nothing to install.
 
@@ -9,18 +12,39 @@ Python 3 standard library only. Nothing to install.
 
 Language models are bad at two things this work depends on:
 
-1. **Counting characters.** Ask a model whether a title is under 60 characters and it will
-   guess, confidently, and be wrong often enough to matter.
-2. **Noticing their own habits.** Ask a model to avoid sounding like a model and it will
+1. **Noticing their own habits.** Ask a model to avoid sounding like a model and it will
    agree, then write "navigating the complexities of the digital realm."
+2. **Counting characters.** Ask a model whether a title is under 60 characters and it will
+   guess, confidently, and be wrong often enough to matter.
 
-Both are jobs for code. That is all this is.
+Neither improves by asking more nicely. Both are jobs for code. That is all this is.
 
-## Quick start
+## Use it as a Claude skill
+
+This is the point of the repo. Install it and Claude runs the checks on its own output
+before handing you a draft, instead of promising it avoided the words and then using them.
 
 ```bash
 git clone https://github.com/SEO-Optimizers/ai-tells.git
-cd ai-tells
+cp -r ai-tells ~/.claude/skills/          # every project
+# or, for one project only:
+cp -r ai-tells /path/to/project/.claude/skills/
+```
+
+Claude picks it up from the description in `SKILL.md` whenever a conversation involves
+title tags, meta descriptions, or whether something reads as AI-written. `SKILL.md` also
+carries the full title tag and meta description rules, so the model has the standard and
+the checker in one place.
+
+Works the same in Claude Code and the Claude apps.
+
+## Or run it as a plain CLI
+
+No Claude required. Python 3 ships with macOS and most Linux.
+
+```bash
+# Scan a draft for AI-writing tells
+python3 scripts/check_rules.py --banned-file draft.md
 
 # Real character counts. The brand after the last "|" is not counted.
 python3 scripts/check_lengths.py "Emergency Plumber Marietta | Acme Plumbing"
@@ -31,28 +55,9 @@ python3 scripts/check_lengths.py --meta "Fast local repairs from licensed pros. 
 # Repeated words, brand leaks, forbidden characters, duplicates across a batch
 python3 scripts/check_rules.py --title-file titles.txt
 python3 scripts/check_rules.py --meta-file metas.txt --company "Acme Plumbing"
-
-# Scan a draft for AI-writing tells
-python3 scripts/check_rules.py --banned-file draft.md
 ```
 
-Both scripts exit 0 on pass and 1 on any failure, so they work in a pre-commit hook or CI.
-
-## The 60-character thing
-
-Most character counters measure your whole title. That is the wrong number.
-
-Titles are written as `Keywords | Company Name`, and Google usually strips the brand from the
-visible SERP title. So the 60-character budget applies to the keyword portion only.
-`check_lengths.py` splits on the last `|` and judges the left side, while still reporting the
-full length for reference:
-
-```
-  [   ok]  39/60  Tarzana Plumber for Leak & Drain Repair | ABC Plumbing  (full incl. brand: 54)
-  [ OVER]  68/60  We Are The Best Plumbers To Help You Get Your Pipes Fixed Fast Today | ABC Plumbing
-```
-
-Counting the whole string makes you cut real keywords to make room for your own brand name.
+Both scripts exit 0 on pass and 1 on any failure, so they drop into a pre-commit hook or CI.
 
 ## The AI-tell linter
 
@@ -72,21 +77,25 @@ not scripture.
 Dash detection only counts the true em-dash (U+2014) and en-dash (U+2013) used as pause
 punctuation. Hyphens in compound words like `same-day` and `family-owned` are never flagged.
 
-**This is a lint, not a verdict.** It catches habits. It does not tell you whether the writing
-is any good, and passing it does not make copy worth publishing.
+**This is a lint, not a verdict.** It catches habits. It does not claim to detect whether a
+machine wrote something, because that claim cannot be made honestly: we scanned 218 of our
+own posts going back to 2007 and 67% tripped a check, nearly all of it written by people.
 
-## Use as a Claude skill
+## The 60-character thing
 
-Drop the folder into your skills directory:
+Most character counters measure your whole title. That is the wrong number.
 
-```bash
-cp -r ai-tells ~/.claude/skills/          # available in every project
-# or, for one project only:
-cp -r ai-tells /path/to/project/.claude/skills/
+Titles are written as `Keywords | Company Name`, and Google usually strips the brand from the
+visible SERP title. So the 60-character budget applies to the keyword portion only.
+`check_lengths.py` splits on the last `|` and judges the left side, while still reporting the
+full length for reference:
+
+```
+  [   ok]  39/60  Tarzana Plumber for Leak & Drain Repair | ABC Plumbing  (full incl. brand: 54)
+  [ OVER]  68/60  We Are The Best Plumbers To Help You Get Your Pipes Fixed Fast Today | ABC Plumbing
 ```
 
-Claude picks it up from the description in `SKILL.md` and runs the scripts instead of
-estimating. `SKILL.md` also carries the full title tag and meta description rules.
+Counting the whole string makes you cut real keywords to make room for your own brand name.
 
 ## Want us to run it on your site?
 
