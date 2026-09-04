@@ -19,7 +19,7 @@ Both are jobs for code. That is all this is.
 ## Quick start
 
 ```bash
-git clone https://github.com/YOURNAME/seo-copy-check.git
+git clone https://github.com/seo-optimizers/seo-copy-check.git
 cd seo-copy-check
 
 # Real character counts. The brand after the last "|" is not counted.
@@ -87,6 +87,14 @@ cp -r seo-copy-check /path/to/project/.claude/skills/
 
 Claude picks it up from the description in `SKILL.md` and runs the scripts instead of
 estimating. `SKILL.md` also carries the full title tag and meta description rules.
+
+## Who made this
+
+Built by [SEO Optimizers](https://seooptimizers.com), an SEO agency in Los Angeles. We wrote
+these checks for our own work and use them on every page we ship.
+
+The phrase list came out of scanning our own blog archive: 218 posts, 311,845 words, going
+back to 2007. 67% of them tripped at least one check.
 
 ## License
 
